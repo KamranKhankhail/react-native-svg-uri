@@ -276,10 +276,7 @@ class SvgUri extends Component{
         return null;
       }
 
-      let inputSVG = this.state.svgXmlData.substring(
-        this.state.svgXmlData.indexOf("<svg "),
-        (this.state.svgXmlData.indexOf("</svg>") + 6)
-      );
+      let inputSVG = this.state.svgXmlData;
 
       //removing comments
       let startIndex = inputSVG.indexOf('<!--')
@@ -294,7 +291,8 @@ class SvgUri extends Component{
       startIndex = inputSVG.indexOf('<desc'), endIndex = inputSVG.indexOf('</desc>') + 7
       inputSVG = inputSVG.replace(inputSVG.substring(startIndex, endIndex), '')
 
-      console.tron.warn({inputSVG})
+      inputSVG = inputSVG.substring(inputSVG.indexOf("<svg"), (inputSVG.indexOf("</svg>") + 6));
+
       const doc = new xmldom.DOMParser().parseFromString(inputSVG);
       const rootSVG = this.inspectNode(doc.childNodes[0]);
 
